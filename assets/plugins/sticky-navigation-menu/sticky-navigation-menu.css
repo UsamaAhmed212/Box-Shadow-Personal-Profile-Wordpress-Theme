@@ -22,7 +22,8 @@
     background: #fff;
 }
 
-#header.sticky .header-section .navbar #navbarNav  ul li a {
+#header.sticky .header-section .navbar #navbarNav  ul li a,
+#header.sticky .header-section .navbar .navbar-nav  ul li a {
     color: #1f1f1f;
     font-weight: bold;
 }

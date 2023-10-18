@@ -5,7 +5,7 @@
 ?>
 
 <!-- Footer Section -->
-<footer id="footer-section" style="background-image: url(&quot;<?php echo get_template_directory_uri(); ?>./images/svg/patrn.svg&quot;);">
+<footer id="footer-section" style="background-image: url(&quot;<?php echo get_template_directory_uri(); ?>/images/svg/pattern.svg&quot;);">
     <div class="container-md">
         <div class="row justify-content-center">
             <div class="col-md-12 p-0 text-center">

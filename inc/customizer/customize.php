@@ -23,7 +23,7 @@ function boxshadow_Customizer_register( $wp_customize ) {
 
     //Logo Customize
     $wp_customize->add_setting( 'boxshadow_logo', array(
-        'default' => BOXSHADOW_THEME_URI .'images/logo.png',
+        'default' => BOXSHADOW_THEME_DIR_URI .'images/logo-3.png',
     ) );
     
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'boxshadow_logo', array(
@@ -229,7 +229,7 @@ function boxshadow_Customizer_register( $wp_customize ) {
 	}
 
     $wp_customize->add_setting( 'boxshadow_footer_copyright_text', array(
-        'default' => '',
+        'default' => 'Copyright © [heart] <a href="#">Usama Ahmed</a>',
     ) );
 
     $wp_customize->add_control( new Boxshadow_TinyMCE_Custom_control( $wp_customize, 'boxshadow_footer_copyright_text', array(

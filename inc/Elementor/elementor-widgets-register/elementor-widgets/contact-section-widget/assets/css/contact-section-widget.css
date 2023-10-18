@@ -1,0 +1,8 @@
+/* This media query [.elementor-column.elementor-col-50.elementor-element] css @media (min-width: 768px) overwriting */
+@media (max-width: 991px) {
+    .elementor-column.elementor-col-50,
+    .elementor-column[data-col="50"] {
+        width: 100%;
+    }
+}
+

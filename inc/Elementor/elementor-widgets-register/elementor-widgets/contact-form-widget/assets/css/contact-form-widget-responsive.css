@@ -12,16 +12,16 @@
         padding-left: 0px;
     }
 
-    #contact-section-wrapper .contact-text .text-box-inline .subtitle {
+    #contact-section-wrapper .contact-text .text-box-inline span {
         position: initial;
         display: inline;
     }
 
-    #contact-section-wrapper .contact-text .text-box-inline .subtitle::before {
+    #contact-section-wrapper .contact-text .text-box-inline span::before {
         display: none;
     }
 
-    #contact-section-wrapper .contact-text .text-box-inline .subtitle::after {
+    #contact-section-wrapper .contact-text .text-box-inline span::after {
         content: "";
         display: block;
         height: 2px;

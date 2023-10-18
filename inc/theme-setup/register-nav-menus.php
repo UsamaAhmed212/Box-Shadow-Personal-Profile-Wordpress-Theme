@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Resister Menus
 register_nav_menus( array(
-    'header_menu' => __( 'Header Menu', 'boxshadow' ),
+    'header_menu' => __( 'Header', 'boxshadow' ),
 ) );
 
 // wp_nav_menu() li Additional Class Add

@@ -1,4 +1,11 @@
+"use strict";
+
 document.addEventListener("DOMContentLoaded", function () {
+    svgLoader();
+});
+
+
+function svgLoader() {
     /*
     * Replace all SVG images with inline SVG
     */
@@ -46,11 +53,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 
                 // Replace image with new SVG
-                img.parentNode.replaceChild(svg, img);
+                if (typeof(img.parentNode) != 'undefined' && img.parentNode != null) {
+                    img.parentNode.replaceChild(svg, img);
+                }
+
             }
         }
 
         // Sending our request 
         xhr.send();
-    }); 
-});
+    });
+
+}

@@ -16,7 +16,7 @@
                                     <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
                                         <img data-src="<?php echo get_theme_mod( 'boxshadow_logo' ); ?>" alt="Logo">
                                     </a>
-                                <?php }?>
+                                <?php } ?>
 
                                 <div id="menu-toggle">
                                     <div id="hamburger">

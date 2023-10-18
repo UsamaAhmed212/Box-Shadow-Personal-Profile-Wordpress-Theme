@@ -14,12 +14,19 @@ function plugins_activation() {
 			'force_activation'   => true,
             'force_deactivation' => true,
         ),
+		array(
+			'name'               => 'Contact Form 7',
+			'slug'               => 'contact-form-7',
+			'required'           => false,
+			'force_activation'   => false,
+            'force_deactivation' => true,
+        ),
     );
 
 	$config = array(
-        'id'           => 'tgmpa',
+        'id'           => 'box-shadow',
 		'default_path' => '',
-		'menu'         => 'tgmpa-install-plugins',
+		'menu'         => 'box-shadow-install-plugins',
 		'parent_slug'  => 'themes.php',
 		'capability'   => 'edit_theme_options',
 		'has_notices'  => true,

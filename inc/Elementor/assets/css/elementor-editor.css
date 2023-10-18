@@ -1,0 +1,13 @@
+.elementor-element .icon .boxshadow-icon::after {
+    content: "BX";
+    font-size: 10px;
+    opacity: 0.4;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.elementor-element .icon [class^="boxshadow-icon"]::after,
+.elementor-element .icon [class*=" boxshadow-icon"]::after {
+    content: "BX" !important;
+}

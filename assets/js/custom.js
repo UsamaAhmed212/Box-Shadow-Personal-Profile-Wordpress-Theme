@@ -1,4 +1,5 @@
 "use strict";
+
 ( function( $ ) {
     window.addEventListener('load', function (event) {
         // Preloader Js
@@ -19,14 +20,14 @@
         
         // Debounce Handler
         function debounce(fn, delay = 300, immediate = true) {
-            let timeout;
+            var timeout;
             return function executedFunction(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 
-                let context = this;
-                let args = arguments;
-                let callNow = immediate && !timeout;
+                var context = this;
+                var args = arguments;
+                var callNow = immediate && !timeout;
 
                 clearTimeout(timeout);
 
@@ -41,16 +42,16 @@
         }
 
         //insertAdjacentHTML Before all Images has data-src Attribute 
-        let innert_element = document.querySelector('.stage');
-        if(innert_element != null) {
-            innert_element = innert_element.outerHTML;
+        var inner_element = document.querySelector('.stage');
+        if(inner_element != null) {
+            inner_element = inner_element.outerHTML;
         }
         const images = document.querySelectorAll("img[data-src]");
 
         if(images != null) {
             images.forEach(function (element) {
-                if(innert_element != null) {
-                    element.insertAdjacentHTML('beforebegin', innert_element);
+                if(inner_element != null) {
+                    element.insertAdjacentHTML('beforebegin', inner_element);
                     element.previousElementSibling.removeAttribute("style");
                 }
             });
@@ -160,37 +161,5 @@
         window.addEventListener('scroll', loadImage);
         window.addEventListener('resize', loadImage);
         window.addEventListener("wheel", loadImage);
-
-        // #contact-form > .send-btn  Click Effect
-        const button = document.querySelector('#contact-form .send-btn');
-        const contactForm = document.getElementById("contact-form");
-
-        function toggleClass(e) {
-            if(!this.classList.contains("finished")) {
-                this.classList.toggle('active');
-                button.disabled = true;
-            }
-        }
-
-        function addClass() {
-            if(!this.classList.contains("finished")) {
-                this.classList.add('finished');
-
-                setTimeout(function() {
-                    button.disabled = false;
-                    if(contactForm != null) {
-                        contactForm.reset();
-                    }
-                    button.classList.remove("finished");
-                }, 1000);
-            }
-        }
-
-        if(button != null) {
-            button.addEventListener('click', toggleClass);
-            button.addEventListener('transitionend', toggleClass);
-            button.addEventListener('transitionend', addClass);
-        }
-        
     });
 })( jQuery );
