@@ -689,6 +689,7 @@ img[data-src] {
 #breadcrumb-section-wrapper .breadcrumb-section .breadcrumb-wrapper .breadcrumb li a {
     font-family: 'Inheritance', 'Alisandra', Arial, sans-serif;
     color: #fff;
+    text-transform: capitalize;
 }
 
 #breadcrumb-section-wrapper .breadcrumb-section .breadcrumb-wrapper .breadcrumb li.active a,

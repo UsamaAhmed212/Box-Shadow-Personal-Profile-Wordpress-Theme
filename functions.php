@@ -21,6 +21,7 @@ require_once BOXSHADOW_THEME_DIR . 'inc/theme-setup.php';
 require_once BOXSHADOW_THEME_DIR . 'inc/theme-options.php';
 require_once BOXSHADOW_THEME_DIR . 'inc/customizer/customize.php';
 require_once BOXSHADOW_THEME_DIR . 'inc/tgm-plugin-activation/activation.php';
+require_once BOXSHADOW_THEME_DIR . 'inc/breadcrumb.php';
 
 // If the Elementor plugin is active
 if ( is_plugin_active( 'elementor/elementor.php' ) ) {

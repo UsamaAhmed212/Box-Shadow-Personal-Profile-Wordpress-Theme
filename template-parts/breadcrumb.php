@@ -15,11 +15,19 @@
                     </div>
                     <div class="col-12 p-0">
                         <div class="breadcrumb-wrapper">
-                            <ul class="breadcrumb justify-content-center">
-                                <li data-aos="zoom-in-up" data-aos-delay="100"><a href="#">Home</a></li>
-                                <li data-aos="zoom-in-up" data-aos-delay="200"><a href="#">Pages</a></li>
-                                <li class="active" data-aos="zoom-in-up" data-aos-delay="300"><a href="#">portfolio</a></li>
-                            </ul>
+                            <?php 
+                                boxshadow_breadcrumb( array(
+                                    'container'        => 'ul',
+                                    'container_id'     => 'breadcrumb',
+                                    'container_class'  => 'breadcrumb justify-content-center',
+                                    'item'             => 'li',
+                                    'item_class'       => '',
+                                    'anchor_class'     => '',
+                                    'separator'        => false,
+                                    'active_class'     => 'active',
+                                    'echo'             => true,
+                                ) );
+                            ?>
                         </div>
                     </div>
                 </div>
