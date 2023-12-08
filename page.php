@@ -19,11 +19,13 @@
     // Breadcrumb Section
     get_template_part( 'template-parts/breadcrumb' );
 
-    // Start the loop.
-    while ( have_posts() ) :
-        the_post();
-        the_content();
-    endwhile;
+    // Start the loop
+    if ( have_posts() ) :
+        while ( have_posts() ) :
+            the_post();
+            the_content();
+        endwhile;
+    endif;
 
     // Footer Section
     get_template_part( 'template-parts/footer/footer', 'layout-1' );

@@ -1,22 +1,26 @@
-<?php 
-    get_header();
+<?php
+   /*
+   Template Name: Home template 2
+   */
 
-    // Preloader
-    get_template_part( 'template-parts/header/preloader' );
+   get_header();
 
-    // Image Loading Before Animations Element
-    get_template_part( 'template-parts/header/image', 'loading-before-animations-element' );
+   // Preloader
+   get_template_part( 'template-parts/header/preloader' );
 
-    // Scroll to top Button
-    get_template_part( 'template-parts/header/scroll', 'to-top-button' );
+   // Image Loading Before Animations Element
+   get_template_part( 'template-parts/header/image', 'loading-before-animations-element' );
 
-    // Header Area
-    get_template_part( 'template-parts/header/header', 'layout-1' );
+   // Scroll to top Button
+   get_template_part( 'template-parts/header/scroll', 'to-top-button' );
 
-    // Background Image Area
-    get_template_part( 'template-parts/header/background', 'image-layout-1' );
+   // Header Area
+   get_template_part( 'template-parts/header/header', 'layout-1' );
+
+   // Background Image Area
+   get_template_part( 'template-parts/header/background', 'image-layout-1' );
 ?>
-    
+
     <!-- Box Shadow Section -->
     <section id="box-shadow-wrapper">
         <div class="container-md p-0">
@@ -343,5 +347,9 @@
             </div>
         </div>
     </section>
-    
-<?php get_footer(); ?>
+
+   <?php
+    // Footer Section
+    get_template_part( 'template-parts/footer/footer', 'layout-1' );
+      
+    get_footer(); ?>

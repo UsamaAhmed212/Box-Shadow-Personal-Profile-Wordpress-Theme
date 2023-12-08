@@ -700,16 +700,14 @@ img[data-src] {
 
 /* Footer Section Css */
 #footer-section {
-    padding: 120px 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: inherit;
-}
-
-#footer-section {
     font-family: "Roboto", Arial, sans-serif;
     font-weight: 400;
     color: #777777;
+    padding: 120px 0;
+    background-color: #2b2a30;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: inherit;
 }
 
 #footer-section p a {

@@ -15,12 +15,13 @@
   Text Domain: boxshadow
 */
 
-body.admin-bar #header {
-    top: 32px;
+body.page-template-home-template-1,
+body.page-template-home-template-2 {
+    background: radial-gradient(circle at 50% 10%, #e6dfd9, #e4ddd7, #ddd6d0, #d4ccc7, #c8bfbb, #bbb2af, #aea4a2, #a19796, #958b8b, #8c8283, #857c7d, #837a7b);
 }
 
-body.admin-bar #about-box-shadow-wrapper {
-    top: 247px;
+body.admin-bar #header {
+    top: 32px;
 }
 
 @media (max-width: 600px) { 
@@ -29,11 +30,6 @@ body.admin-bar #about-box-shadow-wrapper {
     }    
 }
 
-@media only screen and (max-width: 782px) {
-    body.admin-bar #about-box-shadow-wrapper {
-        top: 261px;
-    }
-}
 @media only screen and (min-width: 783px) and (max-width: 1024px)  {
     body.admin-bar #header .sidebar-menu {
         top: 32px;
@@ -45,4 +41,3 @@ body.admin-bar #about-box-shadow-wrapper {
         top: 46px;
     }
 }
-
