@@ -1,5 +1,8 @@
 <?php
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /* Custom Contact Form 7 Default Form Template */
 function custom_contact_form_7_default_form_template($template, $prop) {
 

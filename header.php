@@ -1,3 +1,7 @@
+<?php 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+?>
 <!DOCTYPE html>
 <html lang="<?php language_attributes(); ?>" class="no-js">   
 <head>

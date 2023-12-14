@@ -1,4 +1,8 @@
 <?php
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Template Part for Displaying Preloader page template.
  */

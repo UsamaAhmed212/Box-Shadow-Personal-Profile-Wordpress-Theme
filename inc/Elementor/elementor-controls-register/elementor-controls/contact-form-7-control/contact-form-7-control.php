@@ -3,6 +3,9 @@
 // Custom widgets must be defined in the Elementor namespace
 namespace Elementor; 
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 
 /**
  * Elementor currency control.

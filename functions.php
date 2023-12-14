@@ -1,4 +1,8 @@
 <?php
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 /* 
 *Theme Functions 
 */
@@ -22,6 +26,9 @@ require_once BOXSHADOW_THEME_DIR . 'inc/theme-options.php';
 require_once BOXSHADOW_THEME_DIR . 'inc/customizer/customize.php';
 require_once BOXSHADOW_THEME_DIR . 'inc/tgm-plugin-activation/activation.php';
 require_once BOXSHADOW_THEME_DIR . 'inc/breadcrumb.php';
+
+// Custom Post Type ( Integration ) Init
+require_once BOXSHADOW_THEME_DIR . 'inc/custom-post-type/custom-post-type.php';
 
 // If the Elementor plugin is active
 if ( is_plugin_active( 'elementor/elementor.php' ) ) {

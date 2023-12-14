@@ -1,4 +1,8 @@
 <?php
+
+    // Exit if accessed directly.
+    defined( 'ABSPATH' ) || exit;
+    
    /*
    Template Name: Home template 1
    */
