@@ -39,16 +39,16 @@ window.addEventListener('load', function (event) {
     }
 
     //insertAdjacentHTML Before all Images has data-src Attribute 
-    var innert_element = document.querySelector('.stage');
-    if (innert_element != null) {
-        innert_element = innert_element.outerHTML;
+    var inner_element = document.querySelector('.stage');
+    if (inner_element != null) {
+        inner_element = inner_element.outerHTML;
     }
     var images = document.querySelectorAll("img[data-src]");
 
     if (images != null) {
         images.forEach(function (element) {
-            if (innert_element != null) {
-                element.insertAdjacentHTML('beforebegin', innert_element);
+            if (inner_element != null) {
+                element.insertAdjacentHTML('beforebegin', inner_element);
                 element.previousElementSibling.removeAttribute("style");
             }
         });

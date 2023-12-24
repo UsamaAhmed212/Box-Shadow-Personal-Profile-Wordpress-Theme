@@ -93,15 +93,15 @@ body {
     border-style: none;
 }
 
-/* #screenshots-section > .screenshots-description */
-#screenshots-section .screenshots-description {
+/* #screenshots-section > .screenshots-title */
+#screenshots-section .screenshots-title {
     font-family: 'Roboto', Arial, sans-serif;
     max-width: 1024px;
     margin-top: 20px;
     color: white;
 }
 
-#screenshots-section .screenshots-description h1 {
+#screenshots-section .screenshots-title h1 {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 16px;
