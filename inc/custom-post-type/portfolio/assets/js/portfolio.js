@@ -1,128 +1,176 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var mediaFrame;
+"use strict";
+document.addEventListener('DOMContentLoaded', function () {
 
-    document.getElementById('add_media_button').addEventListener('click', function(e) {
-        e.preventDefault();
-        
+    document.querySelector('#grouped-repeater-wrapper').addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-        if (mediaFrame) {
-            mediaFrame.open();
-            selectPreviousItems();
-            return;
+        /*
+         * This is triggered when clicking on an element with the class "group" or "accordion-header"
+         * Toggle the class "active" on the .accordion-header within the clicked .group
+         */
+        if( event.target.classList.contains('group') ) {
+            var accordionHeader = event.target.querySelector('.accordion-header');
+            if (accordionHeader) accordionHeader.classList.toggle('active');
+
+        } else if ( event.target.closest('.accordion-header') ) {
+            event.target.closest('.accordion-header').classList.toggle('active');
         }
 
-        mediaFrame = wp.media({
-            title: 'Add Portfolio',
-            button: {
-                text: 'Add to Portfolio'
-            },
-            multiple: true
-        });
 
-        mediaFrame.on('open', function() {
-            // pre-select previous items
-            selectPreviousItems();
-        });
+        // Check if the clicked element has the class "cloneable-clone"
+        if ( event.target.classList.contains('cloneable-clone') ) {
+            // Find the closest ancestor with the class "group" and remove it
+            if ( event.target.closest('.group') ) {
+                // Deep clone the selected element
+                var clonedElement = event.target.closest('.group').cloneNode(true);
 
-        mediaFrame.on('select', function() {
-            var attachments = mediaFrame.state().get('selection').toJSON();
-            var mediaItems = [];
+                var accordionHeader = clonedElement.querySelector('.accordion-header');
+                if ( accordionHeader.classList.contains('active') ) accordionHeader.classList.remove('active');
+                
+                // Append the new .group to the .group element after
+                event.target.closest('.group').after(clonedElement);
+            }
+        }
 
-            attachments.forEach(function(attachment) {
-                var mediaItem = {
-                    id: attachment.id,
-                    type: attachment.type,
-                    url: attachment.url
-                };
-                mediaItems.push(mediaItem);
+        
+        // Check if the clicked element has the class "cloneable-remove"
+        if ( event.target.classList.contains('cloneable-remove') ) {
+            // Find the closest ancestor with the class "group" and remove it
+            if ( event.target.closest('.group') ) event.target.closest('.group').remove();
+        }
+
+        
+        // Check if the clicked element has the class "add-group"
+        if ( event.target.classList.contains('add-group') ) {
+            // Create a new .group element
+            var newGroup = document.createElement('div');
+            newGroup.classList.add('group');
+    
+            // Append the necessary child elements to the new .group
+            newGroup.innerHTML = `
+                <div class="accordion-header active">
+                    <span class="accordion-header-icon"></span>
+                    <span class="accordion-header-placeholder"></span>
+                </div>
+                <div class="cloneable-helper">
+                    <i class="cloneable-move"></i>
+                    <i class="cloneable-clone"></i>
+                    <i class="cloneable-remove" data-confirm="Are you sure to delete this item?"></i>
+                </div>
+            `;
+    
+            // Append the new .group to the wrapper/button before
+            event.target.before(newGroup);
+
+        }
+
+        // console.log(event.target);
+
+
+
+
+
+
+        if ( event.target.classList.contains('add-group') ) {
+            var groupContainer = document.createElement('div');
+            groupContainer.classList.add('group');
+
+            groupContainer.innerHTML = `
+                <input type="text" name="grouped_repeater_field[group][]">
+                <input type="hidden" name="grouped_repeater_field[image][]" class="image-url">
+                <div class="image-preview"></div>
+                <input type="button" class="button upload-image" value="Upload Image">
+            `;
+
+            // event.target.before(groupContainer);
+        }
+
+        if (event.target.classList.contains('upload-image')) {
+            var imageField = event.target.parentElement.querySelector('.image-url');
+            var imagePreview = event.target.parentElement.querySelector('.image-preview');
+
+            var imageUploader = wp.media({
+                title: 'Upload Image',
+                button: {
+                    text: 'Select Image'
+                },
+                multiple: false
             });
 
-            // Update the media preview
-            updateMediaPreview(mediaItems);
+            imageUploader.on('select', function () {
+                var attachment = imageUploader.state().get('selection').first().toJSON();
+                imageField.value = attachment.url;
+                imagePreview.innerHTML = `<img src="${attachment.url}" alt="Image Preview" style="max-width: 100px; max-height: 100px;" />`;
+            });
+
+            imageUploader.open();
+        }
+        
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const groupedRepeaterWrapper = document.querySelector('#grouped-repeater-wrapper');
+
+    // Drag-and-drop functionality
+    const groups = document.querySelectorAll('.group');
+    let draggedGroup = null;
+
+    groups.forEach(function(group) {
+        group.draggable = true;
+
+        group.addEventListener('dragstart', () => {
+            console.log(group);
+
+            draggedGroup = group;
+            setTimeout(() => {
+                group.style.opacity = '0.5';
+            }, 0);
         });
 
-        // mediaFrame.on('close', function() {
-        // });
-        
-        mediaFrame.open();
+        group.addEventListener('dragend', () => {
+
+            draggedGroup.style.opacity = '1';
+            draggedGroup = null;
+        });
+    });
+
+    groupedRepeaterWrapper.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    groupedRepeaterWrapper.addEventListener('drop', (e) => {
+        e.preventDefault();
+
+        console.log(e.target);
+
+        if (draggedGroup) {
+            groupedRepeaterWrapper.insertBefore(draggedGroup, e.target);
+        }
     });
     
-    // Remove media item
-    var removeMediaItemsContainer = document.getElementById('media-upload-preview-container');
-    if (removeMediaItemsContainer) removeMediaItem(removeMediaItemsContainer);
 
-    // Function to pre-select previous items
-    function selectPreviousItems() {
-        var previousItemsInput = document.getElementById('media_data');
-        if (previousItemsInput) {
-            // Parse the JSON value inside the 'media_data' hidden input field
-            var previousItems = JSON.parse(previousItemsInput.value);
 
-            // Get the current media frame selection
-            var selection = mediaFrame.state().get('selection');
 
-            // Clear the current selection
-            selection.reset();
 
-            // Add the previously selected items to the current selection
-            previousItems.forEach(function (item) {
-                var attachment = wp.media.attachment(item.id);
-                attachment.fetch();
-                selection.add(attachment ? [attachment] : []);
-            });
-        }
-    }
 
-    // Update media preview
-    function updateMediaPreview(mediaItems) {
-        // Update the value of the 'media_data' hidden input field
-        var previousMediaItemsInput = document.getElementById('media_data');
-        if (previousMediaItemsInput) previousMediaItemsInput.value = JSON.stringify(mediaItems);
 
-        var previewContainer = document.getElementById('media-upload-preview-container');
-        previewContainer.innerHTML = '';
 
-        mediaItems.forEach(function(mediaItem) {
-            // Display selected media
-            var mediaPreview = document.createElement('div');
-            mediaPreview.classList.add('media-upload-preview');
-
-            if (mediaItem.type === 'image') {
-                mediaPreview.innerHTML = '<div class="thumbnail"><img src="' + mediaItem.url + '" alt="Image"></div><a class="remove" href="#">Remove</a>';
-            } else if (mediaItem.type === 'audio') {
-                mediaPreview.innerHTML = '<div class="thumbnail"><audio controls><source src="' + mediaItem.url + '" type="audio/mp3"></audio></div><a class="remove" href="#">Remove</a>';
-            } else if (mediaItem.type === 'video') {
-                mediaPreview.innerHTML = '<div class="thumbnail"><video controls><source src="' + mediaItem.url + '" type="video/mp4"></video></div><a class="remove" href="#">Remove</a>';
-            }
-
-            previewContainer.appendChild(mediaPreview);
-        });
-
-        // Remove media item
-        if (previewContainer) removeMediaItem(previewContainer);
-    }
-
-    // Function to handle the removal of a media item when the corresponding 'Remove' link is clicked.
-    function removeMediaItem(mediaItemsContainer) {
-        var mediaItems = mediaItemsContainer.querySelectorAll('.media-upload-preview .thumbnail + .remove');
-
-        mediaItems.forEach(function(mediaItem, index) {
-            mediaItem.addEventListener('click', function(e) {
-                e.preventDefault();
     
-                var previousMediaItemsInput = document.getElementById('media_data');
-                if (previousMediaItemsInput) {
-                    // Parse the JSON value inside the 'media_data' hidden input field
-                    var mediaItems = JSON.parse( previousMediaItemsInput.value );
-    
-                    // Remove an item from the 'mediaItems'
-                    mediaItems.splice(index, 1);
-    
-                    // Update the media preview
-                    updateMediaPreview(mediaItems);
-                }
-            });
-        });
-    }
+
+
+
+
 
 });

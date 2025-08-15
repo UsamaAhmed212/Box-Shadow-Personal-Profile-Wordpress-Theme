@@ -1,4 +1,4 @@
-#media-upload-container {
+#grouped-repeater-wrapper  {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -6,20 +6,27 @@
     padding: 20px;
 }
 
-#media-upload-controller {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+#grouped-repeater-wrapper .group {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    padding: 15px 65px 15px 10px;
+    font-size: 100%;
+    border: 1px solid #ccd0d4;
+    background-color: #fafafa;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    transition: border-color .15s;
+    margin-bottom: 5px;
+    outline: 0;
 }
 
-#media-upload-controller h4 {
-    display: inline-block;
-    margin: 10px;
-    color: #333;
+#grouped-repeater-wrapper .group:hover {
+    border-color: #999;
 }
 
-#media-upload-controller #add_media_button {
+/* Repeater Button Css */
+#grouped-repeater-wrapper .add-group {
     display: inline-block;
     background-color: #4caf50;
     color: white;
@@ -27,56 +34,84 @@
     padding: 3px 12px;
     border: none;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 13px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-#media-upload-controller #add_media_button:focus {
-    box-shadow: none;
+/* Accordion Header Css */
+#grouped-repeater-wrapper .accordion-header .accordion-header-icon {
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 1;
+    font-family: dashicons;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    speak: never;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
 }
 
-#media-upload-preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+#grouped-repeater-wrapper .accordion-header .accordion-header-icon:before {
+    content: "\f345";
 }
 
-#media-upload-container .media-upload-preview {
-    margin: 10px;
-    background: rgba(67,89,113,.025);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+#grouped-repeater-wrapper .accordion-header.active .accordion-header-icon:before {
+    content: "\f347";
 }
 
-#media-upload-container .media-upload-preview .thumbnail {
-    padding: 10px;
-    line-height: 0;
-    overflow: hidden;
+#grouped-repeater-wrapper .accordion-header .accordion-header-placeholder {
+    background-color: #ddd;
+    margin-top: 4px;
+    width: 100px;
+    height: 10px;
+    font-size: 10px;
+    line-height: 10px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 2px;
 }
 
-#media-upload-container .media-upload-preview a.remove {
-    display: block;
-    color: #697a8d;
-    text-align: center;
-    margin-top: 10px;
-    padding: 8px 0;
-    font-size: 12px;
-    border-top: 1px solid #d9dee3;
-    text-decoration: none;
+
+/* Cloneable Helper Css */
+#grouped-repeater-wrapper .cloneable-helper {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    z-index: 1;
+    font-size: 14px;
+    line-height: 1em;
 }
 
-#media-upload-container .media-upload-preview a.remove:hover,
-#media-upload-container .media-upload-preview a.remove:focus {
-    color: #697a8d;
-    background: rgba(67,89,113,.1);
-    box-shadow: unset;
+#grouped-repeater-wrapper .cloneable-helper i {
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 1;
+    font-family: dashicons;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    speak: never;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+    padding: 2px;
+    color: #999;
 }
 
-#media-upload-container .media-upload-preview img,
-#media-upload-container .media-upload-preview audio,
-#media-upload-container .media-upload-preview video {
-    max-width: 100%;
-    height: auto;
+#grouped-repeater-wrapper .cloneable-helper .cloneable-move:before {
+    content: "\f545";
+}
+
+#grouped-repeater-wrapper .cloneable-helper .cloneable-clone:before {
+    content: "\f105";
+}
+
+#grouped-repeater-wrapper .cloneable-helper .cloneable-remove:before {
+    content: "\f335";
 }

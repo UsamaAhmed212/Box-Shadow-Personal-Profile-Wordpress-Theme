@@ -159,78 +159,117 @@ class CustomPostTypePortfolio {
         );
     }
 
-    
+
     /**
      * Render Portfolio Media Meta Box Controls Output in the Editor
      */
     public function render_portfolio_media_meta_box($post) {
-        
-        wp_nonce_field('portfolio_media_meta_box', 'portfolio_media_meta_box_nonce');
-
-        // Retrieve the current value of the media meta box
-        $media_data = get_post_meta( $post->ID, '_media_data', true );
-        $media_data = json_decode( $media_data, true );
-        
+        // Use nonce for verification
+        wp_nonce_field(basename(__FILE__), 'custom_meta_box_nonce');
+    
+        // Get existing values for grouped repeater field
+        $grouped_repeater_values = get_post_meta($post->ID, '_grouped_repeater_field', true);
+    
         ?>
-        <!-- Output HTML for the media meta box -->
-        <div id="media-upload-container">
-            <div id="media-upload-controller">
-                <!-- <h4>Portfolio Upload:</h4> -->
-                <input type="hidden" id="media_data" name="media_data" value="<?php echo esc_attr(json_encode($media_data)); ?>">
-                <button class="button button-primary" id="add_media_button">Add Portfolio</button>
+        <!-- HTML Output for Grouped Repeater Fields -->
+        <div id="grouped-repeater-wrapper">
+            <div class="group">
+                <div class="accordion-header">
+                    <span class="accordion-header-icon"></span>
+                    <span class="accordion-header-placeholder"></span>
+                </div>
+                <div class="cloneable-helper">
+                    <i class="cloneable-move"></i>
+                    <i class="cloneable-clone"></i>
+                    <i class="cloneable-remove" data-confirm="Are you sure to delete this item?"></i>
+                </div>
+                <span>Group 01</span>
             </div>
-            <div id="media-upload-preview-container">
-                <?php
-                // Display selected media
-                if ($media_data) {
-                    foreach ($media_data as $media_item) {
-                        echo '<div class="media-upload-preview">';
-                        if ( $media_item['type'] === 'image' ) { ?>
-                            <div class="thumbnail">
-                                <img src="<?php echo esc_url( $media_item['url'] ); ?>" alt="Image">
-                            </div>
-                            <a class="remove" href="#">Remove</a>
-                        <?php
-                        } elseif ( $media_item['type'] === 'audio' ) { ?>
-                            <audio controls>
-                                <source src="<?php echo esc_url( $media_item['url'] ); ?>" type="audio/mp3">
-                            </audio>
-                            <a class="remove" href="#">Remove</a>
-                        <?php
-                        } elseif ( $media_item['type'] === 'video' ) { ?>
-                            <video controls>
-                                <source src="<?php echo esc_url( $media_item['url'] ); ?>" type="video/mp4">
-                            </video>
-                            <a class="remove" href="#">Remove</a>
-                        <?php
-                        }
-                        echo '</div>';
-                    }
-                }
-                ?>
+            <div class="group">
+                <div class="accordion-header">
+                    <span class="accordion-header-icon"></span>
+                    <span class="accordion-header-placeholder"></span>
+                </div>
+                <div class="cloneable-helper">
+                    <i class="cloneable-move"></i>
+                    <i class="cloneable-clone"></i>
+                    <i class="cloneable-remove" data-confirm="Are you sure to delete this item?"></i>
+                </div>
+                <span>Group 02</span>
             </div>
+            <div class="group">
+                <div class="accordion-header">
+                    <span class="accordion-header-icon"></span>
+                    <span class="accordion-header-placeholder"></span>
+                </div>
+                <div class="cloneable-helper">
+                    <i class="cloneable-move"></i>
+                    <i class="cloneable-clone"></i>
+                    <i class="cloneable-remove" data-confirm="Are you sure to delete this item?"></i>
+                </div>
+                <span>Group 03</span>
+            </div>
+            <div class="group">
+                <div class="accordion-header">
+                    <span class="accordion-header-icon"></span>
+                    <span class="accordion-header-placeholder"></span>
+                </div>
+                <div class="cloneable-helper">
+                    <i class="cloneable-move"></i>
+                    <i class="cloneable-clone"></i>
+                    <i class="cloneable-remove" data-confirm="Are you sure to delete this item?"></i>
+                </div>
+                <span>Group 04</span>
+            </div>
+            <div class="group">
+                <div class="accordion-header">
+                    <span class="accordion-header-icon"></span>
+                    <span class="accordion-header-placeholder"></span>
+                </div>
+                <div class="cloneable-helper">
+                    <i class="cloneable-move"></i>
+                    <i class="cloneable-clone"></i>
+                    <i class="cloneable-remove" data-confirm="Are you sure to delete this item?"></i>
+                </div>
+                <span>Group 05</span>
+            </div>
+    
+            <button class="button add-group">Add Portfolio</button>
         </div>
-    <?php
+        <?php
     }
 
-
+    
     /**
      * Save the data from the Portfolio Media Meta Box when the post is saved
      */
+    // Save Custom Meta Box Data
     public function save_portfolio_media_meta_box($post_id) {
-        // Save data when the post is saved
-        if ( defined('DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+        // Check if our nonce is set
+        if (!isset($_POST['custom_meta_box_nonce'])) {
+            return $post_id;
+        }
 
-        // Nonce is either not set or not valid
-        if ( !isset( $_POST['portfolio_media_meta_box_nonce'] ) || !wp_verify_nonce( $_POST['portfolio_media_meta_box_nonce'], 'portfolio_media_meta_box') ) return;
+        // Verify that the nonce is valid
+        if (!wp_verify_nonce($_POST['custom_meta_box_nonce'], basename(__FILE__))) {
+            return $post_id;
+        }
 
-        
-        // Save the media_data value
-        if ( isset( $_POST['media_data'] ) ) {
-            update_post_meta( $post_id, '_media_data', sanitize_text_field( $_POST['media_data'] ) );
+        // Check if autosave
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return $post_id;
+        }
+
+        // Check post type
+        if ('your_custom_post_type' != $_POST['post_type']) {
+            return $post_id;
+        }
+
+        // Update the meta field in the database
+        if (isset($_POST['grouped_repeater_field'])) {
+            update_post_meta($post_id, '_grouped_repeater_field', $_POST['grouped_repeater_field']);
         }
     }
-
     
     /**
      * Enqueue Custom styles and Scripts
